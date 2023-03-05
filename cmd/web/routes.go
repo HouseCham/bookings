@@ -3,7 +3,6 @@ package main
 import (
 	"net/http"
 
-	//"github.com/bmizerany/pat"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/middleware"
 	"github.com/HouseCham/bookings/pkg/config"
@@ -23,6 +22,10 @@ func routes(app *config.AppConfig) http.Handler {
 
 	mux.Get("/", handlers.Repo.Home)
 	mux.Get("/about", handlers.Repo.About)
+
+	// File server -> in order to pull files from the project like images, css & js
+	fileServer := http.FileServer(http.Dir("./src/"))
+	mux.Handle("/src/*", http.StripPrefix("/src", fileServer))
 
 	return mux
 }
