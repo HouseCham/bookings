@@ -29,6 +29,7 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Get("/make-reservation", handlers.Repo.MakeReservation)
 	
 	mux.Post("/search-availability", handlers.Repo.PostAvailability)
+	mux.Post("/search-availability-json", handlers.Repo.JSONPostAvailability)
 
 	// File server -> in order to pull files from the project like images, css & js
 	fileServer := http.FileServer(http.Dir("./src/"))

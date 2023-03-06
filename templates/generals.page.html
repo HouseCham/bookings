@@ -39,7 +39,8 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-body">
-                            <form action="" method="post" id="check-availability-form" novalidate class="needs-validation">
+                            <form action="/search-availability-json" method="post" id="check-availability-form" novalidate class="needs-validation">
+                                <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
                                 <div class="form-row">
                                     <div class="col">
                                         <div class="form-row" id="reservation-dates-modal">
@@ -58,7 +59,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary">Check</button>
+                            <button type="submit" form="check-availability-form" class="btn btn-primary">Check</button>
                         </div>
                     </div>
                 </div>
