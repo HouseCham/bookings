@@ -9,6 +9,7 @@ import (
 
 	"github.com/HouseCham/bookings/pkg/config"
 	"github.com/HouseCham/bookings/pkg/models"
+	"github.com/justinas/nosurf"
 )
 
 // NewTemplates sets the config for the template package
@@ -18,12 +19,13 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
-func AddDefaultData(templateData *models.TemplateData) *models.TemplateData{
+func AddDefaultData(templateData *models.TemplateData, r *http.Request) *models.TemplateData{
+	templateData.CSRFToken = nosurf.Token(r)
 	return templateData
 }
 
 // Render templates using HTML templates
-func RenderTemplate(w http.ResponseWriter, tmpl string, templateData *models.TemplateData) {
+func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, templateData *models.TemplateData) {
 
 	var tc map[string]*template.Template
 	if app.UseCache {
@@ -41,7 +43,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, templateData *models.Tem
 
 	buf := new(bytes.Buffer)
 
-	templateData = AddDefaultData(templateData)
+	templateData = AddDefaultData(templateData, r)
 	_ = t.Execute(buf, templateData)
 
 	// render the template

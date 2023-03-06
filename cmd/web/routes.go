@@ -17,7 +17,7 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Use(middleware.Recoverer)
 	
 	// using my own middlewares
-	mux.Use(NoSurf)
+	mux.Use(NoSurf)	// Ignore anny request POST that doesn't have a propper Cross side forgery token
 	mux.Use(SessionLoad)
 
 	mux.Get("/", handlers.Repo.Home)
@@ -27,6 +27,8 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Get("/search-availability", handlers.Repo.Availability)
 	mux.Get("/contact", handlers.Repo.Contact)
 	mux.Get("/make-reservation", handlers.Repo.MakeReservation)
+	
+	mux.Post("/search-availability", handlers.Repo.PostAvailability)
 
 	// File server -> in order to pull files from the project like images, css & js
 	fileServer := http.FileServer(http.Dir("./src/"))
