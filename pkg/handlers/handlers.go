@@ -79,7 +79,7 @@ type jsonResponse struct {
 
 func (m *Repository) JSONPostAvailability(w http.ResponseWriter, r *http.Request) {
 	response := jsonResponse {
-		Ok: true,
+		Ok: false,
 		Message: "Available!!",
 	}
 
