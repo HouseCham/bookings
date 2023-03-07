@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/HouseCham/bookings/internal/config"
+	"github.com/HouseCham/bookings/internal/forms"
 	"github.com/HouseCham/bookings/internal/models"
 	"github.com/HouseCham/bookings/internal/render"
 )
@@ -18,7 +19,7 @@ type Repository struct {
 	App *config.AppConfig
 }
 
-// NewRepo creates a new repository
+//? NewRepo creates a new repository -> Gets repo from main.go
 func NewRepo(a *config.AppConfig) *Repository {
 	return &Repository{
 		App: a,
@@ -107,5 +108,12 @@ func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
 }
 
 func (m *Repository) MakeReservation(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, r, "makeReservation.page.html", &models.TemplateData{})
+	render.RenderTemplate(w, r, "makeReservation.page.html", &models.TemplateData{
+		Form: forms.New(nil),
+	})
+}
+
+// Handles the posting of a reservation form
+func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
+	
 }
