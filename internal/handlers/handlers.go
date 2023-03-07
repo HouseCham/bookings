@@ -100,7 +100,6 @@ func (m *Repository) JSONPostAvailability(w http.ResponseWriter, r *http.Request
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(out)
-	//w.Write([]byte(fmt.Sprintf("Start date is %s while end date is %s", start, end)))
 }
 
 func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
@@ -108,12 +107,46 @@ func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
 }
 
 func (m *Repository) MakeReservation(w http.ResponseWriter, r *http.Request) {
+	var emptyReservation models.Reservation
+	data := make(map[string]interface{})
+	data["reservation"] = emptyReservation
+	
 	render.RenderTemplate(w, r, "makeReservation.page.html", &models.TemplateData{
 		Form: forms.New(nil),
+		Data: data,
 	})
 }
 
 // Handles the posting of a reservation form
 func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
-	
+	err := r.ParseForm()
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	reservation := models.Reservation{
+		Firstname: r.Form.Get("first_name"),
+		Lastname: r.Form.Get("last_name"),
+		Phone: r.Form.Get("phone"),
+		Email: r.Form.Get("email"),
+	}
+
+	form := forms.New(r.PostForm)
+
+	form.Required("first_name", "last_name", "email", "phone")
+	form.MinLength("first_name", 3, r)
+	form.IsEmail("email")
+
+	if !form.IsValid() {
+		data := make(map[string]interface{})
+		data["reservation"] = reservation
+
+		//? Sends info about errors and cache of the data inserted in the reservation
+		render.RenderTemplate(w, r, "makeReservation.page.html", &models.TemplateData{
+			Data: data,
+			Form: form,
+		})
+		return
+	}
 }
