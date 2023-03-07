@@ -20,6 +20,10 @@ func NewTemplates(a *config.AppConfig) {
 }
 
 func AddDefaultData(templateData *models.TemplateData, r *http.Request) *models.TemplateData{
+	//? PopString() recovers the value of the Session variable and then deletes it from the session
+	templateData.Flash = app.Session.PopString(r.Context(), "flash")
+	templateData.Error = app.Session.PopString(r.Context(), "error")
+	templateData.Warning = app.Session.PopString(r.Context(), "warning")
 	templateData.CSRFToken = nosurf.Token(r)
 	return templateData
 }

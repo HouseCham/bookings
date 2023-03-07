@@ -129,6 +129,19 @@
                 }
             });
         */
+
+        {{ with .Error }}
+            sendBadToast({{ . }})
+        {{ end }}
+
+        {{ with .Flash }}
+            sendGoodToast({{ . }})
+        {{ end }}
+
+        {{ with .Warning }}
+            sendBadToast({{ . }})
+        {{ end }}
+
     </script>
 
     <!-- ========== Custom js ========== -->
