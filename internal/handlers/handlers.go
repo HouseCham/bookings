@@ -6,9 +6,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/HouseCham/bookings/pkg/config"
-	"github.com/HouseCham/bookings/pkg/models"
-	"github.com/HouseCham/bookings/pkg/render"
+	"github.com/HouseCham/bookings/internal/config"
+	"github.com/HouseCham/bookings/internal/models"
+	"github.com/HouseCham/bookings/internal/render"
 )
 
 // Repo is the repository used by the handlers
@@ -75,12 +75,19 @@ func (m *Repository) PostAvailability(w http.ResponseWriter, r *http.Request) {
 type jsonResponse struct {
 	Ok      bool `json:"ok"`
 	Message string `json:"message"`
+	ArriveDate string `json:"arriveDate"`
+	DepartDate string `json:"departDate"`
 }
 
 func (m *Repository) JSONPostAvailability(w http.ResponseWriter, r *http.Request) {
+	start := r.Form.Get("start_date")
+	end := r.Form.Get("end_date")
+
 	response := jsonResponse {
-		Ok: false,
+		Ok: true,
 		Message: "Available!!",
+		ArriveDate: start,
+		DepartDate: end,
 	}
 
 	out, err := json.MarshalIndent(response, "", "     ")
@@ -92,8 +99,6 @@ func (m *Repository) JSONPostAvailability(w http.ResponseWriter, r *http.Request
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(out)
-	//start := r.Form.Get("start_date")
-	//end := r.Form.Get("end_date")
 	//w.Write([]byte(fmt.Sprintf("Start date is %s while end date is %s", start, end)))
 }
 

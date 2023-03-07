@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/alexedwards/scs/v2"
-	"github.com/HouseCham/bookings/pkg/config"
-	"github.com/HouseCham/bookings/pkg/handlers"
-	"github.com/HouseCham/bookings/pkg/render"
+	"github.com/HouseCham/bookings/internal/config"
+	"github.com/HouseCham/bookings/internal/handlers"
+	"github.com/HouseCham/bookings/internal/render"
 )
 
 const portNumber string = ":8080"

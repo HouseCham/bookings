@@ -47,7 +47,7 @@ function valDate(date) {
 
 // Format of YYYY/MM/DD
 function isValidDate(date) {
-    
+
     var datePattern = /^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
 
     // Check if the date string format is a match
@@ -76,4 +76,30 @@ function isValidDate(date) {
         return false;
     }
     return true;
+}
+
+// Use this function after isValidDate function
+function isArriveBeforeDepart(arrive, depart){
+
+    // Remove any non digit characters
+    let arriveDateString = arrive.replace(/\D/g, '');
+    let departDateString = depart.replace(/\D/g, ''); 
+
+    // Parse integer values from the date string
+    let arriveYear = parseInt(arriveDateString.substr(0, 4));
+    let arriveMonth = parseInt(arriveDateString.substr(4, 2));
+    let arriveDay = parseInt(arriveDateString.substr(6, 2));
+
+    let departYear = parseInt(departDateString.substr(0, 4));
+    let departMonth = parseInt(departDateString.substr(4, 2));
+    let departDay = parseInt(departDateString.substr(6, 2));
+
+    if (arriveYear > departYear){
+        return false
+    } else if (arriveMonth > departMonth && arriveYear == departYear) {
+        return false
+    } else if (arriveDay > departDay && arriveMonth == departMonth) {
+        return false
+    }
+    return true
 }
