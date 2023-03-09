@@ -68,7 +68,6 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 	if err != nil {
 		return myCache, err
 	}
-
 	// range through all files ending with *.page.html
 	for _, page := range pages {
 
@@ -78,16 +77,14 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 		if err != nil {
 			return myCache, err
 		}
-
 		// look for layout.html files
 		matches, err := filepath.Glob(fmt.Sprintf("%s/*.layout.html", pathToTemplates))
 		if err != nil {
 			return myCache, err
 		}
-
 		// merge the layout file with the template
 		if len(matches) > 0 {
-			ts, err = ts.ParseGlob("./templates/*.layout.html")
+			ts, err = ts.ParseGlob(fmt.Sprintf("%s/*.layout.html", pathToTemplates))
 			if err != nil {
 				return myCache, err
 			}

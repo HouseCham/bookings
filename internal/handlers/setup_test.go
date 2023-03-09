@@ -62,7 +62,7 @@ func getRoutes() http.Handler {
 	mux.Use(middleware.Recoverer)
 	
 	// using my own middlewares
-	mux.Use(NoSurf)	//? Ignore anny request POST that doesn't have a propper Cross side forgery token
+	//mux.Use(NoSurf)	//? Ignore anny request POST that doesn't have a propper Cross side forgery token
 	mux.Use(SessionLoad)
 
 	mux.Get("/", Repo.Home)

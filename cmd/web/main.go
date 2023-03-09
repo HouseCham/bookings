@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/gob"
-	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -23,7 +22,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("Starting application on port http://localhost%s", portNumber)
+	log.Printf("Starting application on port http://localhost%s", portNumber)
 
 	serve := &http.Server{
 		Addr:    portNumber,
