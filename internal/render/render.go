@@ -2,6 +2,7 @@ package render
 
 import (
 	"bytes"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -14,6 +15,8 @@ import (
 
 // NewTemplates sets the config for the template package
 var app *config.AppConfig
+var pathToTemplates string = "./templates"
+var functions = template.FuncMap{}
 
 func NewTemplates(a *config.AppConfig) {
 	app = a
@@ -61,7 +64,7 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 	myCache := map[string]*template.Template{}
 
 	// get all of the files named *.page.html from ./templates
-	pages, err := filepath.Glob("./templates/*.page.html")
+	pages, err := filepath.Glob(fmt.Sprintf("%s/*.page.html", pathToTemplates))
 	if err != nil {
 		return myCache, err
 	}
@@ -71,13 +74,13 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 
 		// foreach template, create new object
 		name := filepath.Base(page)
-		ts, err := template.New(name).ParseFiles(page)
+		ts, err := template.New(name).Funcs(functions).ParseFiles(page)
 		if err != nil {
 			return myCache, err
 		}
 
 		// look for layout.html files
-		matches, err := filepath.Glob("./templates/*.layout.html")
+		matches, err := filepath.Glob(fmt.Sprintf("%s/*.layout.html", pathToTemplates))
 		if err != nil {
 			return myCache, err
 		}
