@@ -2,6 +2,7 @@ package render
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"html/template"
 	"log"
@@ -22,7 +23,7 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
-func AddDefaultData(templateData *models.TemplateData, r *http.Request) *models.TemplateData{
+func AddDefaultData(templateData *models.TemplateData, r *http.Request) *models.TemplateData {
 	//? PopString() recovers the value of the Session variable and then deletes it from the session
 	templateData.Flash = app.Session.PopString(r.Context(), "flash")
 	templateData.Error = app.Session.PopString(r.Context(), "error")
@@ -31,8 +32,8 @@ func AddDefaultData(templateData *models.TemplateData, r *http.Request) *models.
 	return templateData
 }
 
-// Render templates using HTML templates
-func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, templateData *models.TemplateData) {
+// RenderTemplate Render templates using HTML templates
+func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, templateData *models.TemplateData) error {
 
 	var tc map[string]*template.Template
 	if app.UseCache {
@@ -45,7 +46,7 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, templat
 	// get requested template from cache
 	t, templateFinded := tc[tmpl]
 	if !templateFinded {
-		log.Fatal("could not load template from cache")
+		return errors.New("can't get template from cache")
 	}
 
 	buf := new(bytes.Buffer)
@@ -57,13 +58,15 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, templat
 	_, err := buf.WriteTo(w)
 	if err != nil {
 		log.Println(err)
+		return err
 	}
+	return nil
 }
 
 func CreateTemplateCache() (map[string]*template.Template, error) {
 	myCache := map[string]*template.Template{}
 
-	// get all of the files named *.page.html from ./templates
+	// get all the files named *.page.html from ./templates
 	pages, err := filepath.Glob(fmt.Sprintf("%s/*.page.html", pathToTemplates))
 	if err != nil {
 		return myCache, err

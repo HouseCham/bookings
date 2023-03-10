@@ -35,3 +35,20 @@ func TestMain(m *testing.M) {
 
 	os.Exit(m.Run())
 }
+
+/* ========== creation of struct myWriter to work as a responseWriter, implementing all methods required ========== */
+type myWriter struct{}
+
+func (tw *myWriter) Header() http.Header {
+	var header http.Header
+	return header
+}
+
+func (tw *myWriter) WriteHeader(i int) {
+
+}
+
+func (tw *myWriter) Write(b []byte) (int, error) {
+	length := len(b)
+	return length, nil
+}
