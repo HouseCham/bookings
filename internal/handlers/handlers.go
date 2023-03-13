@@ -19,7 +19,7 @@ type Repository struct {
 	App *config.AppConfig
 }
 
-// ? NewRepo creates a new repository -> Gets repo from main.go
+// NewRepo creates a new repository -> Gets repo from main.go
 func NewRepo(a *config.AppConfig) *Repository {
 	return &Repository{
 		App: a,
@@ -164,7 +164,7 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	form := forms.New(r.PostForm)
 
 	form.Required("first_name", "last_name", "email", "phone")
-	form.MinLength("first_name", 3, r)
+	form.MinLength("first_name", 3)
 	form.IsEmail("email")
 
 	if !form.IsValid() {

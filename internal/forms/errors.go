@@ -2,12 +2,12 @@ package forms
 
 type errors map[string][]string
 
-// Adds an error message for a given form field
+// Add Adds an error message for a given form field
 func (e errors) Add(field, message string) {
 	e[field] = append(e[field], message)
 }
 
-// Returns the first error message
+// Get Returns the first error message
 func (e errors) Get(field string) string {
 	errorString := e[field]
 	if len(errorString) == 0 {

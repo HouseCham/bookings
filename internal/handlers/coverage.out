@@ -1,0 +1,22 @@
+mode: set
+github.com/HouseCham/bookings/internal/handlers/handlers.go:23.47,27.2 1 1
+github.com/HouseCham/bookings/internal/handlers/handlers.go:30.33,32.2 1 1
+github.com/HouseCham/bookings/internal/handlers/handlers.go:39.67,44.2 3 1
+github.com/HouseCham/bookings/internal/handlers/handlers.go:47.68,59.2 5 1
+github.com/HouseCham/bookings/internal/handlers/handlers.go:61.71,63.2 1 1
+github.com/HouseCham/bookings/internal/handlers/handlers.go:65.69,67.2 1 1
+github.com/HouseCham/bookings/internal/handlers/handlers.go:69.75,71.2 1 1
+github.com/HouseCham/bookings/internal/handlers/handlers.go:80.70,82.2 1 1
+github.com/HouseCham/bookings/internal/handlers/handlers.go:84.78,93.2 4 1
+github.com/HouseCham/bookings/internal/handlers/handlers.go:95.81,97.9 2 1
+github.com/HouseCham/bookings/internal/handlers/handlers.go:97.9,102.3 4 1
+github.com/HouseCham/bookings/internal/handlers/handlers.go:104.2,111.4 4 0
+github.com/HouseCham/bookings/internal/handlers/handlers.go:120.79,126.2 4 1
+github.com/HouseCham/bookings/internal/handlers/handlers.go:128.83,140.16 5 1
+github.com/HouseCham/bookings/internal/handlers/handlers.go:140.16,142.3 1 0
+github.com/HouseCham/bookings/internal/handlers/handlers.go:144.2,147.14 3 1
+github.com/HouseCham/bookings/internal/handlers/handlers.go:150.78,152.16 2 1
+github.com/HouseCham/bookings/internal/handlers/handlers.go:152.16,155.3 2 0
+github.com/HouseCham/bookings/internal/handlers/handlers.go:157.2,170.21 6 1
+github.com/HouseCham/bookings/internal/handlers/handlers.go:170.21,180.3 4 0
+github.com/HouseCham/bookings/internal/handlers/handlers.go:182.2,184.66 2 1

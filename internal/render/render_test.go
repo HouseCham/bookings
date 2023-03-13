@@ -20,7 +20,6 @@ func TestAddDefaultData(t *testing.T) {
 		t.Error("flash value 123 not found in the session")
 	}
 }
-
 func TestRenderTemplate(t *testing.T) {
 	pathToTemplates = "./../../templates"
 	tc, err := CreateTemplateCache()
@@ -48,7 +47,6 @@ func TestRenderTemplate(t *testing.T) {
 		t.Error("got template that does not exists")
 	}
 }
-
 func getSession() (*http.Request, error) {
 	response, err := http.NewRequest("GET", "/some-url", nil)
 	if err != nil {
@@ -62,11 +60,9 @@ func getSession() (*http.Request, error) {
 
 	return response, nil
 }
-
 func TestNewTemplates(t *testing.T) {
 	NewTemplates(app)
 }
-
 func TestCreateTemplateCache(t *testing.T) {
 	pathToTemplates = "./../../templates"
 	_, err := CreateTemplateCache()
